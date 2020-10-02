@@ -1,0 +1,36 @@
+import cv2
+import numpy as np
+import time
+
+def onMouse(event,x,y,flags,param):
+	if event == cv2.EVENT_LBUTTONDOWN:
+
+		xy ="%d,%d" % (x,y)
+		cv2.circle(frame, (x, y), 1, (255, 0, 0), thickness = -1)
+		cv2.putText(frame,xy,(x,y),cv2.FONT_HERSHEY_PLAIN,1.0,(0,0,0),3)
+        
+cap=cv2.VideoCapture(0,cv2.CAP_DSHOW)#电脑自带摄像头为0,usb外接摄像头为1
+
+#读取摄像头的内容并显示
+while True:
+
+	ret,frame = cap.read()
+	cv2.namedWindow("resized",cv2.WINDOW_FREERATIO)
+	# cv2.resizeWindow("resized",640,480)#调整显示窗口大小
+
+	cv2.imshow('resized',frame)#以一个窗口显示原视频
+	#cv2.moveWindow('resized',600,50)#移动窗口位置
+
+	#cv2.setMouseCallback('resized',onMouse)
+
+	#time.sleep(3)
+
+	if cv2.waitKey(1) &0xff == ord('q'):
+		break
+
+#释放窗口
+cap.release()
+cv2.destroyAllWindows()
+
+
+
